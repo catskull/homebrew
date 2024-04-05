@@ -86,7 +86,7 @@ class ElasticsearchAT6 < Formula
     EOS
   end
 
-  plist_options manual: "elasticsearch"
+  @plist_manual = "elasticsearch"
 
   def plist
     <<~EOS
