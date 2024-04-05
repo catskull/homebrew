@@ -29,6 +29,10 @@ class ElasticsearchAT6 < Formula
     "elasticsearch_#{ENV["USER"]}"
   end
 
+  def es_home
+    ENV["ES_HOME"] || var
+  end
+
   def install
     # Remove Windows files
     rm_f Dir["bin/*.bat"]
@@ -47,12 +51,12 @@ class ElasticsearchAT6 < Formula
       s.gsub!(/#\s*cluster\.name: .*/, "cluster.name: #{cluster_name}")
 
       # 2. Configure paths
-      s.sub!(%r{#\s*path\.data: /path/to.+$}, "path.data: #{var}/lib/elasticsearch/")
-      s.sub!(%r{#\s*path\.logs: /path/to.+$}, "path.logs: #{var}/log/elasticsearch/")
+      s.sub!(%r{#\s*path\.data: /path/to.+$}, "path.data: #{es_home}/lib/elasticsearch/")
+      s.sub!(%r{#\s*path\.logs: /path/to.+$}, "path.logs: #{es_home}/log/elasticsearch/")
     end
 
     inreplace "#{libexec}/config/jvm.options" do |s|
-      s.gsub! "logs/gc.log", "#{var}/log/elasticsearch/gc.log"
+      s.gsub! "logs/gc.log", "#{es_home}/log/elasticsearch/gc.log"
       s.gsub! "10-:-XX:UseAVX=2", "# 10-:-XX:UseAVX=2" if Hardware::CPU.arm?
     end
 
@@ -80,9 +84,9 @@ class ElasticsearchAT6 < Formula
 
   def caveats
     <<~EOS
-      Data:    #{var}/lib/elasticsearch/
-      Logs:    #{var}/log/elasticsearch/#{cluster_name}.log
-      Plugins: #{var}/elasticsearch/plugins/
+      Data:    #{es_home}/lib/elasticsearch/
+      Logs:    #{es_home}/log/elasticsearch/#{cluster_name}.log
+      Plugins: #{es_home}/elasticsearch/plugins/
       Config:  #{etc}/elasticsearch/
     EOS
   end
@@ -109,11 +113,11 @@ class ElasticsearchAT6 < Formula
           <key>RunAtLoad</key>
           <true/>
           <key>WorkingDirectory</key>
-          <string>#{var}</string>
+          <string>#{es_home}</string>
           <key>StandardErrorPath</key>
-          <string>#{var}/log/elasticsearch.log</string>
+          <string>#{es_home}/log/elasticsearch.log</string>
           <key>StandardOutPath</key>
-          <string>#{var}/log/elasticsearch.log</string>
+          <string>#{es_home}/log/elasticsearch.log</string>
         </dict>
       </plist>
     EOS
