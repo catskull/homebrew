@@ -1,7 +1,7 @@
 class ElasticsearchAT6 < Formula
   desc "Distributed search & analytics engine"
   homepage "https://www.elastic.co/products/elasticsearch"
-  url "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-oss-6.8.13.tar.gz"
+  url "https://github.com/catskull/homebrew/releases/download/elasticsearch%406/elasticsearch-oss-6.8.13.tar.gz"
   sha256 "e3a41d1a58898c18e9f80d45b1bf9f413779bdda9621027a6fe87f3a0f59ec90"
   license "Apache-2.0"
 
