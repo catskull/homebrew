@@ -1,6 +1,6 @@
 cask "openemu-arm" do
   version "2.4.1-ARM"
-  sha256 :no_check # Replace with actual SHA if available for security
+  sha256 '176d081952949fd11b483ae5515ca04436fea85bdfe6516ca9bcf4a420975b72'
 
   url "https://github.com/Azyzraissi/OpenEmu/releases/download/2.4.1-ARM/OpenEmu-2.4.1-ARM64.zip"
   name "OpenEmu ARM"
